@@ -1,0 +1,105 @@
+diff --git a/CWE-22/src/tstat/src/StoppedState.cpp b/CWE-22/src/tstat/src/StoppedState.cpp
+index 8c198b7..c39036d 100644
+--- a/CWE-22/src/tstat/src/StoppedState.cpp
++++ b/CWE-22/src/tstat/src/StoppedState.cpp
+@@ -7,6 +7,7 @@
+ 
+ #include <filesystem>
+ #include <fstream>
++#include <optional>
+ 
+ StoppedState::StoppedState(TimeCounter& counter) : counter_(counter) {}
+ 
+@@ -22,13 +23,15 @@ void StoppedState::stop()
+ 
+ void StoppedState::save()
+ {
+-    auto file_path = getFilePath();
+-    std::ios_base::openmode file_flags{};
+-    if (std::filesystem::exists(file_path)) {
+-        file_flags = std::ios_base::out | std::ios_base::app;
++    auto file_path = getSafeFilePath();
++    if (file_path) {
++        std::ios_base::openmode file_flags{};
++        if (std::filesystem::exists(file_path.value())) {
++            file_flags = std::ios_base::out | std::ios_base::app;
++        }
++        std::ofstream output_file(file_path.value(), file_flags);
++        output_file << utils::getCurrentDate() << ";" << getElapsedTime() << '\n';
+     }
+-    std::ofstream output_file(file_path, file_flags);
+-    output_file << utils::getCurrentDate() << ";" << getElapsedTime() << '\n';
+     counter_.reset();
+     counter_.counter_state_ = std::make_unique<IdleState>(counter_);
+ }
+@@ -39,15 +42,34 @@ void StoppedState::abort()
+     counter_.counter_state_ = std::make_unique<IdleState>(counter_);
+ }
+ 
+-std::string StoppedState::getElapsedTime() const {
++std::string StoppedState::getElapsedTime() const
++{
+     return utils::getElapsedTime(counter_.stop_, counter_.start_);
+ }
+ 
+-std::string StoppedState::getFilePath() const {
+-    return utils::join('/', config::log_save_path, counter_.task_name_);
++std::optional<std::string> StoppedState::getSafeFilePath() const
++{
++    auto path = utils::join('/', config::log_save_path, counter_.task_name_);
++    auto normal_path = std::filesystem::path(path).lexically_normal();
++    auto starts_with = [](const std::string& str, const auto& prefix) {
++        return str.rfind(prefix, 0) == 0;
++    };
++    if (starts_with(normal_path, config::log_save_path)) {
++        return normal_path;
++    }
++    return std::nullopt;
++}
++
++std::string StoppedState::getFilePath() const
++{
++    if (const auto& p = getSafeFilePath()) {
++        return p.value();
++    }
++    return "invalid path!";
+ }
+ 
+-std::string StoppedState::getCurrentStateInfo() const noexcept {
++std::string StoppedState::getCurrentStateInfo() const noexcept
++{
+     std::stringstream stream{};
+     stream << "State: stopped \n";
+     stream << "Task: " << counter_.task_name_ << '\n';
+diff --git a/CWE-22/src/tstat/tstat/IState.hpp b/CWE-22/src/tstat/tstat/IState.hpp
+index 37f49fe..eea6a46 100644
+--- a/CWE-22/src/tstat/tstat/IState.hpp
++++ b/CWE-22/src/tstat/tstat/IState.hpp
+@@ -1,7 +1,6 @@
+ #pragma once
+ 
+ #include <string>
+-
+ class IState {
+     public:
+ 
+diff --git a/CWE-22/src/tstat/tstat/StoppedState.hpp b/CWE-22/src/tstat/tstat/StoppedState.hpp
+index 98241b7..f1701e4 100644
+--- a/CWE-22/src/tstat/tstat/StoppedState.hpp
++++ b/CWE-22/src/tstat/tstat/StoppedState.hpp
+@@ -1,5 +1,7 @@
+ #pragma once
+ 
++#include <optional>
++
+ #include "tstat/IState.hpp"
+ 
+ class TimeCounter;
+@@ -8,6 +10,7 @@ class StoppedState : public IState
+ {
+     TimeCounter& counter_;
+ 
++    std::optional<std::string> getSafeFilePath() const;
+    public:
+     StoppedState() = delete;
+     explicit StoppedState(TimeCounter&);
