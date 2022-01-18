@@ -4,6 +4,7 @@ project(tstat)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(COMPILE_FLAGS -Wall -pedantic -Wconversion -Wextra)
 add_compile_options(${COMPILE_FLAGS})
 
