@@ -7,15 +7,24 @@ To build this application you need:
 
 ## Run example
 To run this application:
-1) `sudo apt-get install libsfml-dev`
-2) `mkdir build`
-3) `cd build`
-4) `cmake ..`
-5) `make -j`
-6) `make install`
-7) `./stratego`
+```bash
+sudo apt-get install libsfml-dev
+mkdir build
+cd build
+cmake ..
+make -j
+make install./stratego
+```
 
 Once you deploy your units on the board (it is possible to use RANDOM button in order to make it faster) try to click any unit in the first row. It will result in `Segmentation Fault` error due to the null pointer dereference.
+
+## Apply patch
+You can apply patch by:
+```bash
+git apply null_ptr_fix.diff
+```
+
+Now if you start the game again, you can freely click on any unit and nothing will crash.
 
 ## Reference
 Link to the original application: https://github.com/WojtekMs/stratego

@@ -1,0 +1,13 @@
+diff --git a/CWE-476/src/Player.cpp b/CWE-476/src/Player.cpp
+index 6e1f164..9c97e48 100644
+--- a/CWE-476/src/Player.cpp
++++ b/CWE-476/src/Player.cpp
+@@ -74,7 +74,7 @@ bool Player::can_move(Board::Tile from, Board::Tile to) {
+     if (!board.can_move(from, to)) {
+         return false;
+     }
+-    if (board.get_unit(to.x, to.y)->get_owner() == player) {
++    if (board.get_unit(to.x, to.y) && board.get_unit(to.x, to.y)->get_owner() == player) {
+         return false;
+     }
+     return true;
