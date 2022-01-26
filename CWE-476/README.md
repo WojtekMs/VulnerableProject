@@ -15,5 +15,7 @@ To run this application:
 6) `make install`
 7) `./stratego`
 
+Once you deploy your units on the board (it is possible to use RANDOM button in order to make it faster) try to click any unit in the first row. It will result in `Segmentation Fault` error due to the null pointer dereference.
+
 ## Reference
 Link to the original application: https://github.com/WojtekMs/stratego
