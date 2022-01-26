@@ -12,10 +12,18 @@ cmake ..
 make -j
 make install
 ./tstat_daemon
-./tstat start ../hello_there
+./tstat start ../CMakeLists.txt
 ./tstat stop
 ```
 
-Observe that the folder hello_there is created outside the default log folder specified in the config.hpp.
+Observe that the file CMakeLists.txt which is outside the default log folder specified in the config.hpp is modified.
+
+## Apply patch
+You can apply patch by:
+```bash
+git apply path_traversal_fix.diff
+```
+
+Now if you try to execute the above mentioned commands you should get error: `invalid path!`.
 ## Reference
 Link to the original application: https://github.com/WojtekMs/Tstat
