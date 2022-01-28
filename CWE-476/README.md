@@ -13,7 +13,8 @@ mkdir build
 cd build
 cmake ..
 make -j
-make install./stratego
+make install
+./stratego
 ```
 
 Once you deploy your units on the board (it is possible to use RANDOM button in order to make it faster) try to click any unit in the first row. It will result in `Segmentation Fault` error due to the null pointer dereference.
