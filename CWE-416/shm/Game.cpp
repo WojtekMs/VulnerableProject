@@ -63,7 +63,7 @@ void Game::setPlayer()
     setStartingCargo();
     std::cout << "Welcome on board captain " << playerOne_->getName() << '\n';
     map_->changeCurrentPosition(&map_->islands_.at(0));
-    currentStore_ = map_->islands_.at(0).returnIslandStore(); // island contains a store with cargo pointers to deleted memory after emplace_back
+    currentStore_ = map_->islands_.at(0).returnIslandStore(); // island contains a store with cargo pointers to deleted memory after emplace_back in Map::SetUpRandomIsland
     std::cout << "Your's ship " << playerOne_->getShip()->getName() << " is waiting! Good Luck!" << '\n';
     std::cout << "You are in start point. ";
     map_->PrintCurrentPosition();

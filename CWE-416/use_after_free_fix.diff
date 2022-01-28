@@ -1,0 +1,29 @@
+diff --git a/CWE-416/shm/Store.cpp b/CWE-416/shm/Store.cpp
+index d3209f3..e4748a0 100644
+--- a/CWE-416/shm/Store.cpp
++++ b/CWE-416/shm/Store.cpp
+@@ -21,6 +21,12 @@ Store::Store(int money, size_t availableSpace, Time *time) : Storable(money, ava
+     storeCargo.shrink_to_fit();
+ }
+ 
++Store::Store(const Store& rhs) : Storable(rhs.money_, rhs.availableSpace_) {
++    for(auto cargo_ptr : rhs.storeCargo){
++        storeCargo.push_back(cargo_ptr->clone());
++    }
++}
++
+ Store::~Store()
+ {
+     for(auto i : storeCargo)
+diff --git a/CWE-416/shm/Store.hpp b/CWE-416/shm/Store.hpp
+index 77ab013..c1047b6 100644
+--- a/CWE-416/shm/Store.hpp
++++ b/CWE-416/shm/Store.hpp
+@@ -26,6 +26,7 @@ enum class Response
+ class Store: public Storable {
+ public:
+     Store(int money, size_t availableSpace, Time* time);
++    Store(const Store&);
+     
+     ~Store();   
+     Response buy(Cargo * cargo, size_t amount, Player* player);
