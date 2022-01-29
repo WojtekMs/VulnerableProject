@@ -15,7 +15,7 @@ tidy_22:
 	run-clang-tidy-12 -clang-tidy-bin clang-tidy-12 -header-filter=.* -checks=$(tidy_checks) -p CWE-22/build/ CWE-22/src/tstat/src
 
 flawfinder_22:
-	flawfinder CWE-22/src/tstat/src
+	flawfinder CWE-22/src/tstat/src CWE-22/src/tstat/tstat/
 
 check_416:
 	cppcheck --enable=all CWE-416/shm/
@@ -25,3 +25,12 @@ tidy_416:
 
 flawfinder_416:
 	flawfinder CWE-416/shm/
+
+check_476:
+	cppcheck --enable=all -I CWE-476/include/ CWE-476/src/
+
+tidy_476:
+	run-clang-tidy-12 -clang-tidy-bin clang-tidy-12 -header-filter=.* -checks=$(tidy_checks) -p CWE-476/build/ CWE-476/src/
+
+flawfinder_476:
+	flawfinder CWE-476/include/ CWE-476/src/
