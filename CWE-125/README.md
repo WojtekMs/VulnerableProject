@@ -22,5 +22,13 @@ Long message which exceeds 256 characters which is the buffer size! Long message
 
 Observe that the server crashes with Segmentation Fault.
 
+## Apply patch
+You can apply patch by:
+```bash
+git apply out_of_bounds_read_fix.diff
+```
+
+Now if you try to execute the above mentioned command everything should work fine.
+
 ## Reference
 Link to the original application: https://github.com/WojtekMs/Networking
