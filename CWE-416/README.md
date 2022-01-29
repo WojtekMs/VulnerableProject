@@ -30,6 +30,6 @@ You can apply patch by:
 git apply use_after_free_fix.diff
 ```
 
-This fix helps only for a single CWE-416 weakness located inside `Store` class. However, this program contains more of these weaknesses caused by `Time` class which implements the Observer design pattern. Once subscribers are destroyed (and their memory is freed) they are not unsubscribed and `Time::notify` also tries to access memory that was already freed. It has the same consequences as the example described above. To resolve this issue all `TimeEffectables` should `detach` themselves in the destructors.
+Now if you try to print store cargo, sell or buy cargo while staying on the same island, everything should work fine. However, this fix helps only for a single CWE-416 weakness located inside `Store` class but this program contains more of these weaknesses caused by `Time` class which implements the Observer design pattern. Once subscribers are destroyed (and their memory is freed) they are not unsubscribed and `Time::notify` also tries to access memory that was already freed. It has the same consequences as the example described above. To resolve this issue all `TimeEffectables` should `detach` themselves in the destructors.
 ## Reference
 Link to the original application: https://github.com/Kasia9311/object-oriented-programming/tree/game_okular
