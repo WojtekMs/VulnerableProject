@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 project(shm)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(SRC 
     alcohol.cpp 
     cargo.cpp 
