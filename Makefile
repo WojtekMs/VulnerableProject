@@ -34,3 +34,13 @@ tidy_476:
 
 flawfinder_476:
 	flawfinder CWE-476/include/ CWE-476/src/
+
+check_89:
+	cppcheck --enable=all CWE-89/
+
+# this check needs to be run inside docker container with mysql++ code or it is required to install mysql++ locally
+tidy_89:
+	run-clang-tidy-12 -clang-tidy-bin clang-tidy-12 -header-filter=.* -checks=$(tidy_checks) -p CWE-89/build CWE-89/
+
+flawfinder_89:
+	flawfinder CWE-89/
