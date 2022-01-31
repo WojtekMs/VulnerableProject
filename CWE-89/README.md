@@ -17,11 +17,11 @@ docker-compose up -d
 Build and run the application
 ```bash
 docker build . -t cwe-89
-docker run -it --network cwe-89_default
+docker run -it --network cwe-89_default cwe-89
 ```
 
 You can filter SQL query results by the product description. Observe that it is possible to execute arbitrary SQL code if you insert specially forged SQL statement.  
-For example: `'; SHOW TABLES; -- `
+For example: `'; SHOW TABLES; -- ` (make sure that you add a space after '--')
 
 ## Apply patch
 You can apply patch by:
