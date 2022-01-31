@@ -5,6 +5,8 @@ This code is vulnerable to the [CWE-89 "SQL Injection"](http://cwe.mitre.org/dat
 To build this application you need:
 - docker (along with docker-compose)
 
+You can follow the [official guide](https://docs.docker.com/get-started/) to download & install docker.
+
 ## Run example
 
 First, start MySQL DB server
