@@ -1,19 +1,20 @@
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
-#include <mysql++.h>
 #include <vector>
+
+#include "mysql++.h"
 
 using namespace std;
 using namespace mysqlpp;
 
-typedef vector<size_t> IntVectorType;
+using IntVectorType = std::vector<size_t>;
 
 static void print_header(IntVectorType& widths, StoreQueryResult& res)
 {
     cout << "  |" << setfill(' ');
     for (size_t i = 0; i < res.field_names()->size(); i++) {
-        cout << " " << setw(widths.at(i)) << res.field_name(int(i)) << " |";
+        cout << " " << setw(widths.at(i)) << right << res.field_name(int(i)) << " |";
     }
     cout << endl;
 }
@@ -22,7 +23,7 @@ static void print_row(IntVectorType& widths, Row& row)
 {
     cout << "  |" << setfill(' ');
     for (size_t i = 0; i < row.size(); ++i) {
-        cout << " " << setw(widths.at(i)) << row[int(i)] << " |";
+        cout << " " << setw(widths.at(i)) << right << row[int(i)] << " |";
     }
     cout << endl;
 }
@@ -31,7 +32,7 @@ static void print_row_separator(IntVectorType& widths)
 {
     cout << "  +" << setfill('-');
     for (size_t i = 0; i < widths.size(); i++) {
-        cout << "-" << setw(widths.at(i)) << '-' << "-+";
+        cout << "-" << setw(widths.at(i)) << right << '-' << "-+";
     }
     cout << endl;
 }
@@ -87,10 +88,11 @@ int main(int argc, char* argv[])
     conn.set_option(new MultiStatementsOption(true));
 
     Query query = conn.query();
+    std::cout << "Wyszukujesz produkty z bazy danych.\n";
+    std::cout << "Wprowadz opis produktu, ktory Cie interesuje: ";
     std::string description;
     std::getline(std::cin, description);
-    query << "select opis, cena from Produkty WHERE opis LIKE '% " << description << "%';";
+    query << "SELECT opis, cena from Produkty WHERE opis LIKE '%" << description << "%';";
     print_multiple_results(query);
-
     return 0;
 }

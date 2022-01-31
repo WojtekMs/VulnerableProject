@@ -1,4 +1,4 @@
-﻿pracownik_id;dane_logowania_id;dane_kontaktowe_id;uprawnienie_id;imie;nazwisko
+pracownik_id;dane_logowania_id;dane_kontaktowe_id;uprawnienie_id;imie;nazwisko
 1;1;20;1;Sylwester;Krawczyk
 2;2;21;1;Leopold;Kwiatkowski
 3;3;22;2;Joanna;Bielecka
