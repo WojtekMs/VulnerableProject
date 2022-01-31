@@ -1,0 +1,13 @@
+diff --git a/CWE-89/main.cpp b/CWE-89/main.cpp
+index 1687753..12685ff 100644
+--- a/CWE-89/main.cpp
++++ b/CWE-89/main.cpp
+@@ -92,7 +92,7 @@ int main(int argc, char* argv[])
+     std::cout << "Wprowadz opis produktu, ktory Cie interesuje: ";
+     std::string description;
+     std::getline(std::cin, description);
+-    query << "SELECT opis, cena from Produkty WHERE opis LIKE '%" << description << "%';";
++    query << "SELECT opis, cena from Produkty WHERE opis LIKE '%" << escape << description << "%';";
+     print_multiple_results(query);
+     return 0;
+ }
