@@ -39,10 +39,9 @@ jobs:
           unzip -o $HOME/.sonar/build-wrapper-linux-x86.zip -d $HOME/.sonar/
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
       - name: Run build-wrapper
-        working-directory: ${{runner.workspace}}/CWE-125
         run: |
           mkdir build
-          cmake -S . -B build
+          cmake -S CWE-125 -B build
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/
       - name: Run sonar-scanner
         env:
