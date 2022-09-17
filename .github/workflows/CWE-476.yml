@@ -40,7 +40,7 @@ jobs:
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
       - name: Download dependencies
         run: |
-          apt-get install libsfml-dev -y
+          sudo apt-get install libsfml-dev -y
       - name: Run build-wrapper
         run: |
           mkdir build-CWE-476
