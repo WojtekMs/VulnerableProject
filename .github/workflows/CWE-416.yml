@@ -41,7 +41,7 @@ jobs:
       - name: Run build-wrapper
         run: |
           mkdir build-CWE-416
-          cmake -S CWE-416 -B build-CWE-416
+          cmake -S CWE-416/shm -B build-CWE-416
           build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build-CWE-416/
       - name: Run sonar-scanner
         env:
