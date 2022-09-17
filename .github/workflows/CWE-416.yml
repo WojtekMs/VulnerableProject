@@ -1,4 +1,4 @@
-name: Build
+name: CWE-416
 on:
   push:
     branches:
@@ -40,9 +40,9 @@ jobs:
           echo "$HOME/.sonar/build-wrapper-linux-x86" >> $GITHUB_PATH
       - name: Run build-wrapper
         run: |
-          mkdir build
-          cmake -S CWE-125 -B build
-          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build/
+          mkdir build-CWE-416
+          cmake -S CWE-416 -B build-CWE-416
+          build-wrapper-linux-x86-64 --out-dir ${{ env.BUILD_WRAPPER_OUT_DIR }} cmake --build build-CWE-416/
       - name: Run sonar-scanner
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
