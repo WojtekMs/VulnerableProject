@@ -13,10 +13,10 @@ This project contains source code with vulnerabilities. Each example contains in
 - flawfinder
 
 ## Examples
-- [CWE-22](CWE-22/)
+- [Tstat: CWE-22](CWE-22/)
 - [CWE-89](CWE-89/)
-- [CWE-125](CWE-125/)
-- [CWE-416](CWE-416/)
-- [CWE-476](CWE-476/)
+- [Networking: CWE-125](CWE-125/)
+- [Symulator Handlu Morskiego: CWE-416](CWE-416/)
+- [Stratego: CWE-476](CWE-476/)
 
 
